@@ -3,12 +3,14 @@
   "version": "1.0.0",
   "description": "Demo project for CICD Haredi Campus",
   "main": "index.js",
+  "type": "module",
   "scripts": {
     "test": "// No test command yet"
   },
   "author": "Chen Asulin",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.21.2"
+    "express": "^4.21.2",
+    "nodemon": "^3.1.9"
   }
 }
