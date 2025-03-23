@@ -3,7 +3,7 @@ const app = express()
 const port = 3000
 
 function react(req, res){
-    console.log("React  has been called");
+    console.log("React  has been cad");
     
     res.send('Hello Chen!');
 }
