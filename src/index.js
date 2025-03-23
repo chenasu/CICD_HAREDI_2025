@@ -5,7 +5,7 @@ const port = 3000
 function react(req, res){
     console.log("This is after we added the CircleCi");
     
-    res.send('Hello Chen!!!!');
+    res.send('Hello Chen Asulin');
 }
 
 app.get('/', react)
