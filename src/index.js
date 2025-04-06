@@ -1,69 +1,38 @@
-import express from 'express'
-const app = express()
-const port = 3000
+import express from 'express';
+import cors from 'cors';
+import { addNewUser, checkLogin } from './services/authService.js';
+const app = express();
+const port = 3000;
 
-function react(req, res){
-    console.log("This is after we added the CircleCi");
-    
-    res.send('Hello Chen Asulin');
+app.use(express.json());
+app.use(cors());
+
+function listener(req, res) {
+  res.send('pong');
 }
+app.get('/ping', listener);
 
-app.get('/', react)
-app.get('/home', react)
+app.post('/login', async (req, res) => {
+  try {
+    const body = req.body;
+    const response = await checkLogin(body.username, body.password);
+    res.status(200).json({ message: 'Success', user: response });
+  } catch (error) {
+    res.status(422).json({ message: error.message });
+  }
+});  
 
-app.get('/recipes', (req, res) => {
-    const recipesJSON = `
-    [
-      {
-        "id": 1,
-        "title": "Spaghetti Carbonara",
-        "ingredients": [
-          "200g spaghetti",
-          "100g pancetta",
-          "2 large eggs",
-          "50g parmesan cheese",
-          "Black pepper",
-          "Salt"
-        ],
-        "instructions": "Cook spaghetti, fry pancetta, mix eggs and cheese, combine all with pasta.",
-        "preparationTime": 20,
-        "difficulty": "Easy"
-      },
-      {
-        "id": 2,
-        "title": "Chicken Tikka Masala",
-        "ingredients": [
-          "500g chicken breast",
-          "1 cup yogurt",
-          "3 tbsp tikka masala paste",
-          "1 onion",
-          "400g chopped tomatoes",
-          "Fresh coriander"
-        ],
-        "instructions": "Marinate chicken, sauté onions, add paste, tomatoes, cook chicken, garnish with coriander.",
-        "preparationTime": 45,
-        "difficulty": "Medium"
-      },
-      {
-        "id": 3,
-        "title": "Avocado Toast",
-        "ingredients": [
-          "2 slices sourdough bread",
-          "1 ripe avocado",
-          "Salt",
-          "Pepper",
-          "Lemon juice",
-          "Chili flakes"
-        ],
-        "instructions": "Toast bread, mash avocado with salt, pepper, lemon juice, spread on toast, sprinkle chili flakes.",
-        "preparationTime": 10,
-        "difficulty": "Easy"
-      }
-    ]`;
-  
-    res.json(JSON.parse(recipesJSON));
-  });
+app.post('/signup', async (req, res) => {
+  try {
+    const body = req.body;
+    const userRecord = await addNewUser(body.username, body.password);
+    res.status(200).json({ message: 'Success', user: userRecord });
+  } catch (error) {
+    res.status(422).json({ message: error.message });
+  }
+});
+
 
 app.listen(port, () => {
-  console.log(`CICD app listening on port ${port}`)
-})
+  console.log(`Example app listening on port ${port}`);
+});
