@@ -1,8 +1,9 @@
 import express from 'express';
 import cors from 'cors';
+import 'dotenv/config';
 import { addNewUser, checkLogin } from './services/authService.js';
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(cors());

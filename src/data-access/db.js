@@ -10,9 +10,7 @@ class DB {
     // Create a connection pool using the connection string from .env
     this.pool = new Pool({
       ssl: true,
-      connectionString:
-        'postgresql://main_db_rv6u_user:G6d6B0jaLKp02RQCzq4UK5gTWSLbtF05@dpg-cvp70gje5dus73cblfbg-a.frankfurt-postgres.render.com/main_db_rv6u'
-      //   connectionString: process.env.DATABASE_URL,
+      connectionString: process.env.CONNECTION_STRING,
     });
     this.initDB();
   }
